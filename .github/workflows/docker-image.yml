@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v1.1.0
+      with:
+        username: ${{ secrets.DOCKER_HUB_USER }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        # Docker repository to tag the image with
+        repository: "coden/easy-coding-standard"
+        # Automatically tags the built image with the git reference as per the readme
+        tag_with_ref: true
+        # Path to the build context
+        path: "."
+        # Path to the Dockerfile (Default is '{path}/Dockerfile')
+        dockerfile: "."
+        push: true
