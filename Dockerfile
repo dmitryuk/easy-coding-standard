@@ -9,8 +9,7 @@ RUN apt update && apt -y install --no-install-recommends zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* \
     && composer global require symplify/easy-coding-standard ${VERSION} \
     && composer clear-cache \
-    && rm -rf /var/cache/* /var/tmp/* /tmp/* /var/lib/apt/lists/* /usr/lib/x86_64-linux-gnu \
-     /usr/lib/file /usr/lib/gcc /usr/share/doc /usr/share/man /var/lib/dpkg/info
+    && rm -rf /var/cache/* /var/tmp/* /tmp/* /var/lib/apt/lists/*  /usr/share/man /var/lib/dpkg/info
 
 WORKDIR /app
 
