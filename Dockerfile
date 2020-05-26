@@ -1,15 +1,17 @@
 FROM php:7.2-cli
 
 ARG VERSION="7.2.*"
-RUN apt update && apt -y install git
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=alpine/git /usr/bin/git /usr/bin/git
 
-RUN composer global require symplify/easy-coding-standard ${VERSION} \
-    && composer global show | grep easy-coding-standard \
-    && composer clear-cache \
+RUN apt update && apt -y install --no-install-recommends zlib1g-dev \
+    && docker-php-ext-install zip \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/cache/* /var/tmp/* /tmp/*
+    && composer global require symplify/easy-coding-standard ${VERSION} \
+    && composer clear-cache \
+    && rm -rf /var/cache/* /var/tmp/* /tmp/* /var/lib/apt/lists/* /usr/lib/x86_64-linux-gnu \
+     /usr/lib/file /usr/lib/gcc /usr/share/doc /usr/share/man /var/lib/dpkg/info
 
 WORKDIR /app
 
-ENTRYPOINT ["ecs"]
+ENTRYPOINT ["/root/.composer/vendor/bin/ecs"]
