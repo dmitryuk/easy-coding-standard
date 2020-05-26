@@ -23,5 +23,4 @@ jobs:
         # Path to the build context
         path: "."
         # Path to the Dockerfile (Default is '{path}/Dockerfile')
-        dockerfile: "."
         push: true
