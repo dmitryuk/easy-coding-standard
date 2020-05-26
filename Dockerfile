@@ -7,3 +7,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer global require symplify/easy-coding-standard ${VERSION} \
     && composer global show | grep easy-coding-standard \
     && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+ENTRYPOINT ["ecs"]
