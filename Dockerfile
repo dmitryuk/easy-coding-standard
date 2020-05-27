@@ -1,4 +1,4 @@
-FROM php:7.2-cli
+FROM php:7.2-cli-stretch
 
 ARG VERSION="7.2.*"
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -10,8 +10,8 @@ RUN apt update && apt -y install --no-install-recommends zlib1g-dev \
     && composer global require symplify/easy-coding-standard ${VERSION} \
     && composer clear-cache \
     && rm -rf /var/cache/* /var/tmp/* /tmp/* /var/lib/apt/lists/*  /usr/share/man /var/lib/dpkg/info \
-    && cp /root/.composer/vendor/bin/ecs /usr/bin
+    && ln -s /root/.composer/vendor/bin/ecs /usr/bin
 
 WORKDIR /app
 
-ENTRYPOINT ["/root/.composer/vendor/bin/ecs"]
+ENTRYPOINT ["ecs"]
