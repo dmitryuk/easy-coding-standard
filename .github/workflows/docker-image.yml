@@ -19,6 +19,7 @@ jobs:
         # Docker repository to tag the image with
         repository: "coden/easy-coding-standard"
         # Automatically tags the built image with the git reference as per the readme
+        tags: latest
         tag_with_ref: true
         # Path to the build context
         path: "."
